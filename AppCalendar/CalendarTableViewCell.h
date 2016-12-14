@@ -10,4 +10,9 @@
 
 @interface CalendarTableViewCell : UITableViewCell
 
+//月份数据
+@property (nonatomic,strong)NSArray *cellImageArray;
+
+//设置年份和月份的数据
+- (void)setMouthImages:(NSArray *)imageArray year:(NSUInteger)year;
 @end

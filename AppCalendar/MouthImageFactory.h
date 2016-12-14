@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <UIKit/UIKit.h>
 @interface MouthImageFactory : NSObject
 
+//
++ (instancetype)shareMotuhFactory;
+
+- (UIImage *)imageMouthWithDate:(NSDate *)date osSize:(CGSize)size;
 @end
