@@ -24,12 +24,12 @@ extern NSUInteger const kSignleFigureGlyphsCount;
 @property (nonatomic, assign) CTFontRef  font;
 
 @property (nonatomic, assign) CGGlyph   *glyphs;
-@property (nonatomic, assign) CGRect    *glyphRects;
+//@property (nonatomic, assign) CGRect    *glyphRects;
 @property (nonatomic, assign) CGSize    *glyphAdvances;
 @property (nonatomic, assign) CGFloat    glyphAdvance;
 
 @property (nonatomic, assign) NSInteger  length;
-@property (nonatomic, assign) CGRect     glyphRect;
+//@property (nonatomic, assign) CGRect     glyphRect;
 
 + (INOMonthGlyphsHelper *)glyphHelperWithFontName:(NSString *)fontName fontSize:(CGFloat)fontSize;
 

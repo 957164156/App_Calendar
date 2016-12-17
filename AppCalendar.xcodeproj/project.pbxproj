@@ -164,10 +164,10 @@
 		88714A951DFF8B7F0049EA64 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8837CF0A1E00C50200A63292 /* MouthImageFactory.h */,
-				8837CF0B1E00C50200A63292 /* MouthImageFactory.m */,
 				8837CF131E0111BB00A63292 /* DateModel.h */,
 				8837CF141E0111BB00A63292 /* DateModel.m */,
+				8837CF0A1E00C50200A63292 /* MouthImageFactory.h */,
+				8837CF0B1E00C50200A63292 /* MouthImageFactory.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -261,6 +261,7 @@
 				TargetAttributes = {
 					8853A0241DFE6F6200546747 = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = D8YCPBZ6ZE;
 						ProvisioningStyle = Automatic;
 					};
 					8853A03D1DFE6F6200546747 = {
@@ -482,6 +483,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = D8YCPBZ6ZE;
 				INFOPLIST_FILE = AppCalendar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sunmingqing.AppCalendar;
@@ -493,6 +495,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = D8YCPBZ6ZE;
 				INFOPLIST_FILE = AppCalendar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sunmingqing.AppCalendar;

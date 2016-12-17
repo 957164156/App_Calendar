@@ -33,11 +33,12 @@ static NSString *const kMonthDatesChars = @"123456789101112131415161718192021222
     glyphsHelper.font = CTFontCreateWithName((__bridge CFStringRef)[UIFont systemFontOfSize:fontSize].fontName, fontSize, NULL);
     glyphsHelper.glyphs =  (CGGlyph *)malloc(sizeof(CGGlyph) * glyphsHelper.length);
     CTFontGetGlyphsForCharacters(glyphsHelper.font, characters, glyphsHelper.glyphs, glyphsHelper.length);
-    glyphsHelper.glyphRects = (CGRect *)malloc(sizeof(CGRect) * glyphsHelper.length);
-    glyphsHelper.glyphRect = CTFontGetBoundingRectsForGlyphs(glyphsHelper.font, kCTFontHorizontalOrientation, glyphsHelper.glyphs, glyphsHelper.glyphRects, glyphsHelper.length);
+//    glyphsHelper.glyphRects = (CGRect *)malloc(sizeof(CGRect) * glyphsHelper.length);
+//    glyphsHelper.glyphRect = CTFontGetBoundingRectsForGlyphs(glyphsHelper.font, kCTFontHorizontalOrientation, glyphsHelper.glyphs, glyphsHelper.glyphRects, glyphsHelper.length);
     
     glyphsHelper.glyphAdvances = (CGSize *)malloc(sizeof(CGSize) * glyphsHelper.length);
-    glyphsHelper.glyphAdvance = CTFontGetAdvancesForGlyphs(glyphsHelper.font, kCTFontHorizontalOrientation, glyphsHelper.glyphs, glyphsHelper.glyphAdvances, glyphsHelper.length);
+    glyphsHelper.glyphAdvance = CTFontGetAdvancesForGlyphs(glyphsHelper.font, kCTFontOrientationHorizontal, glyphsHelper.glyphs, glyphsHelper.glyphAdvances, glyphsHelper.length);
+    glyphsHelper.glyphAdvance = CTFontGetAdvancesForGlyphs(glyphsHelper.font, kCTFontOrientationHorizontal, glyphsHelper.glyphs, glyphsHelper.glyphAdvances, glyphsHelper.length);
 
     return glyphsHelper;
 

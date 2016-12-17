@@ -77,8 +77,9 @@ static MouthImageFactory *factory = nil;
     CGSize datesAreaSize = CGSizeMake(size.width, size.height - mouthNameHeight);
     //每一天的size
     CGSize dateSize = CGSizeMake(datesAreaSize.width / kMonthDaysColumns, datesAreaSize.height / kMonthDaysRows);
-    //获取今天是周几
+    //获取这个月的第一天是周几
     NSUInteger weekDates = [mouthDate daysOfWeek];
+    //判断CGPoint类型需要占用的内存并分配
     CGPoint   *glyphPositions = (CGPoint *)malloc(sizeof(CGPoint) * _glyphsHelper.length);
     //
     NSUInteger glyphIterator = 0;
@@ -89,9 +90,10 @@ static MouthImageFactory *factory = nil;
         //确定这一天在第几列
         CGPoint offset = CGPointMake(weekDates % kMonthDaysColumns,
                                      weekDates / kMonthDaysColumns);
-        
+//        
         if (i < kSignleFigureGlyphsCount) {
             CGSize glyphAdvance = _glyphsHelper.glyphAdvances[glyphIterator];
+            NSLog(@"  ======= %f ========  %f",glyphAdvance.width,glyphAdvance.height);
             CGPoint position = CGPointMake(offset.x * dateSize.width + 0.5 * (dateSize.width - glyphAdvance.width),
                                            (datesAreaSize.height - (offset.y + 1) * dateSize.height) + 0.5 * (dateSize.height - glyphAdvance.height));
             glyphPositions[glyphIterator++] = position;
@@ -108,18 +110,22 @@ static MouthImageFactory *factory = nil;
             glyphPositions[glyphIterator++] = CGPointMake(offset.x * dateSize.width + 0.5 * (dateSize.width - secondFigureGlyphAdvance.width) + 0.5 * firstFigureGlyphAdvance.width,
                                                           glyphPositionY);
         }
-                 weekDates++;
+        //为今天添加一个红色的背景
+        
+        weekDates++;
     }
-    // Glyphs drawing
+    // 翻转坐标
     CGAffineTransform transform = CGAffineTransformTranslate(CGAffineTransformIdentity, 0, size.height);
     transform = CGAffineTransformScale(transform, 1.0, -1.0);
     CGContextSetTextMatrix(ctf, transform);
     
-    CGContextSetFillColorWithColor(ctf, [UIColor blackColor].CGColor);
-    CTFontDrawGlyphs(_glyphsHelper.font, _glyphsHelper.glyphs, glyphPositions, glyphIterator, ctf);
+    CGContextSetFillColorWithColor(ctf, [UIColor redColor].CGColor);
+    NSLog(@"  ======= %lu",(unsigned long)glyphIterator);
+    CTFontDrawGlyphs(_glyphsHelper.font, _glyphsHelper.glyphs, glyphPositions,glyphIterator, ctf);
     free(glyphPositions);
+   
     
-    // Drawing month title
+    // 画月份
     [self drawMonthTitleInContext:ctf inRect:monthNameFrame monthName:[_monthTitleDateFormatter stringFromDate:mouthDate]];
     
     return ctf;
@@ -155,7 +161,7 @@ CG_INLINE CGContextRef CGContextCreate(CGSize size) {
     CGFloat scaleFactor = [[UIScreen mainScreen] scale];
     //创建色彩空间
     CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
-    //创建画板
+    //创建画板，创建图形上下文
     CGContextRef ctx = CGBitmapContextCreate(NULL, size.width * scaleFactor, size.height * scaleFactor, 8, size.width * 2 * (CGColorSpaceGetNumberOfComponents(space) + 1), space, (CGBitmapInfo)kCGImageAlphaPremultipliedLast);
     //缩放做标轴
     CGContextScaleCTM(ctx, scaleFactor, scaleFactor);

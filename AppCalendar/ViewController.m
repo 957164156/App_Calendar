@@ -11,6 +11,8 @@
 #import "DateModel.h"
 @interface ViewController ()<UITableViewDataSource,UITableViewDelegate> {
     NSInteger _offset;
+    NSInteger CellHeight;
+    CGFloat currentOffSet;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -28,8 +30,7 @@
     self.tableView.rowHeight = [UIScreen mainScreen].bounds.size.height - 64 - 44;
     self.model = [[DateModel alloc] init];
     _offset = -1;
-  
-   
+    CellHeight = [UIScreen mainScreen].bounds.size.height - 64 - 44;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -62,10 +63,11 @@
     
     return cell;
 }
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     CGPoint contentOffset  = scrollView.contentOffset;
-    NSUInteger CellHeight = [UIScreen mainScreen].bounds.size.height - 64 - 44;
+    
     if (contentOffset.y <= CellHeight) {
         contentOffset.y = scrollView.contentSize.height / 2 + CellHeight;
         _offset--;
@@ -76,4 +78,33 @@
     
     [scrollView setContentOffset:contentOffset];
 }
+
+//
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    
+    //
+     currentOffSet = scrollView.contentOffset.y;
+}
+
+//
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    
+    //一次偏移的距离超过了50%才做处理
+    NSInteger index = targetContentOffset->y / CellHeight;
+    if (fabs(targetContentOffset->y - currentOffSet) > CellHeight * 0.5) {
+        
+        //目标位置
+        if (fabs(index * CellHeight - targetContentOffset->y) > CellHeight * 0.5) {
+            index++;
+        }
+        *targetContentOffset = CGPointMake(0, CellHeight * index);
+        //如果滑动的距离太近，不作处理
+ 
+    }
+    
+    
+}
+
+
 @end
